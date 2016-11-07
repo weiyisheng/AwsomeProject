@@ -4,7 +4,9 @@ import { View, TouchableOpacity, ScrollView, StyleSheet, requireNativeComponent,
 import Scene from 'AwesomeProject/app/scenes/Scene'
 import Button from 'AwesomeProject/app/components/Button'
 
-import SnapShot from 'AwesomeProject/app/components/SnapShot'
+import SnapShot from 'react-native-snapshot-view'
+
+console.log(" SnapShot : ", SnapShot);
 
 export default class Communications extends React.Component {
 
@@ -12,8 +14,9 @@ export default class Communications extends React.Component {
     super(props)
 
     this.state = {
-      shootNum: 0,
-      imagePath: "aaa"
+      shootNum: 3,
+      imagePath: "aaa",
+      fileName: "aasa"
     }
   }
 
@@ -32,20 +35,21 @@ export default class Communications extends React.Component {
           }}/>
 
           <SnapShot
-            fileName={"successImage"}
-            shoot={this.state.shootNum}
-            onShooted={events => {
-              console.log(" onShooted  : ", "file://" + events.nativeEvent.filePath);
+            fileName={this.state.fileName}
+            shotNumber={this.state.shootNum}
+            onShoted={events => {
+              console.log(' onShoted : ', events.nativeEvent.filePath);
               this.setState({
-                imagePath: "file://" + events.nativeEvent.filePath
+                imagePath: events.nativeEvent.filePath
               })
             }}
             style={{width: 100, height: 300, backgroundColor: "blue", justifyContent: "center", alignItems: "center"}}>
             <View style={{width: 50, height: 50, backgroundColor: "red"}}></View>
-            <Text style={{fontSize: 20, color: "#947589"}}>SnapShot！！！</Text>
+            <Text style={{fontSize: 20, color: "#947589"}}>Snapshot GO HOOOH！！！</Text>
           </SnapShot>
 
           <Image
+            style={{width: 500, height: 600}}
             source={{uri: this.state.imagePath, isStatic: true}}
             resizeMode={"contain"}/>
         </ScrollView>
@@ -53,6 +57,13 @@ export default class Communications extends React.Component {
     )
   }
 }
+
+
+
+
+
+
+
 
 const styles = StyleSheet.create({
   btn: {
